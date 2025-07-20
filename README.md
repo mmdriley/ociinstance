@@ -40,3 +40,4 @@ Therefore, this project still configures the OCI provider directly using variabl
 
 - [Automate OCI VM instance creation using Terraform
 ](https://learn.arm.com/learning-paths/servers-and-cloud-computing/oci-terraform/tf-oci/)
+- [Ampere Terraform configs](https://github.com/AmpereComputing/terraform-oci-ampere-a1/blob/07c061f067b5a1e91cfab448d1e89ad18fed150d/oraclelinux9.tf)

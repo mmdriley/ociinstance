@@ -29,11 +29,42 @@ provider "oci" {
   fingerprint = var.oci_specifics.public_key_fingerprint
 }
 
-# demo of outputs, to show provider connection is working
-data "oci_identity_availability_domains" "ads" {
+/*
+resource "oci_core_instance" "the_instance" {
+
+}
+*/
+
+data "oci_core_images" "ubuntu_arm64_images" {
   compartment_id = var.oci_specifics.tenancy_ocid
+
+  state = "AVAILABLE"
+
+  sort_by = "DISPLAYNAME"
+  sort_order = "DESC"
+
+  filter {
+    name = "display_name"
+
+    # Use a regex to filter to Ubuntu aarch64 images, which have the format:
+    #   Canonical-Ubuntu-NN.NN-aarch64-YYYY-MM-DD-revision
+    #
+    # We rely on `sort_order` above to make sure we are getting the most
+    # recent relese.
+    #
+    # Use indented-heredoc + chomp() to avoid having to double-escape every
+    # character class.
+    values = [chomp(<<-END
+      ^Canonical-Ubuntu-\d{2}\.\d{2}-aarch64-\d{4}\.\d{2}\.\d{2}-\d+$
+    END
+    )]
+
+    regex = true
+  }
 }
 
-output "all-availability-domains-in-your-tenancy" {
-  value = data.oci_identity_availability_domains.ads.availability_domains
+output "things_i_know_oci_core_instance_will_need" {
+  value = {
+    image = data.oci_core_images.ubuntu_arm64_images.images[0]
+  }
 }
