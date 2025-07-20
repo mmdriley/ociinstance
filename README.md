@@ -22,7 +22,19 @@ openssl rsa -pubout -in ~/.oci/apikey.pem | pbcopy
 
 ## Other notes
 
+### Key fingerprints
+
 You might imagine you could use the [`tls_public_key`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/public_key) datasource to get the API key fingerprint (`public_key_fingerprint_md5`). Unfortunately this doesn't work because the provider returns the **OpenSSH** fingerprint ([ref](https://github.com/hashicorp/terraform-provider-tls/blob/f3a2c493b83905de473b21cf9a286ff1c88ae0e3/internal/provider/common_key.go#L204), [ref](https://cs.opensource.google/go/x/crypto/+/master:ssh/keys.go;l=1763-1771;drc=c6fce028266aa1271946a7dfde94cd71cf077d5e)), which is different from the algorithm OCI uses to fingerprint the public key (an [MD5 hash of the DER encoding of the public key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#four)).
+
+### Provider configuration
+
+Like the OCI SDKs and CLI, the OCI Terraform provider will read its configuration from `~/.oci/config` by default. In fact, as the [docs call out](https://docs.oracle.com/en-us/iaas/Content/dev/terraform/configuring.htm#sdk-cli-config-file):
+
+> Terraform configuration file provider blocks can be removed if all API Key Authentication required values are provided as environment variables or are set in the `~/.oci/config` file.
+
+Unfortunately, there is no way to _read back_ the values specified in the config file -- there is no OCI equivalent to [`aws_caller_identity`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity).
+
+Therefore, this project still configures the OCI provider directly using variables, so those values are also available for other uses.
 
 ## Works cited
 
