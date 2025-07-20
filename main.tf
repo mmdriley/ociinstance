@@ -36,6 +36,10 @@ resource "oci_core_instance" "the_instance" {
 }
 */
 
+data "oci_identity_availability_domains" "domains" {
+  compartment_id = var.oci_specifics.tenancy_ocid
+}
+
 data "oci_core_images" "ubuntu_arm64_images" {
   compartment_id = var.oci_specifics.tenancy_ocid
 
@@ -66,6 +70,7 @@ data "oci_core_images" "ubuntu_arm64_images" {
 
 output "things_i_know_oci_core_instance_will_need" {
   value = {
-    image = data.oci_core_images.ubuntu_arm64_images.images[0]
+    image = data.oci_core_images.ubuntu_arm64_images.images[0].id
+    domain = data.oci_identity_availability_domains.domains.availability_domains[0].name
   }
 }
