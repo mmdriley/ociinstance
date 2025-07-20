@@ -9,16 +9,13 @@ variable "oci_specifics" {
         # openssl rsa -in ~/.oci/apikey.pem -pubout -outform DER | openssl md5 -c
         # ref: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#four
         public_key_fingerprint = string
-    })
-}
 
-variable "oci_private_key_path" {
-    type = string
-    default = "~/.oci/apikey.pem"
+        private_key_path = optional(string, "~/.oci/apikey.pem")
+    })
 
     validation {
-        condition = fileexists(var.oci_private_key_path)
-        error_message = "oci_private_key_path references a file that does not exist"
+        condition = fileexists(var.oci_specifics.private_key_path)
+        error_message = "private_key_path references a file that does not exist"
     }
 }
 
@@ -28,7 +25,7 @@ provider "oci" {
 
   region = var.oci_specifics.region
 
-  private_key_path = var.oci_private_key_path
+  private_key_path = var.oci_specifics.private_key_path
   fingerprint = var.oci_specifics.public_key_fingerprint
 }
 
