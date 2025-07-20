@@ -31,7 +31,8 @@ provider "oci" {
 
 /*
 resource "oci_core_instance" "the_instance" {
-
+  compartment_id = var.oci_specifics.tenancy_ocid
+  shape = "VM.Standard.A1.Flex"
 }
 */
 
