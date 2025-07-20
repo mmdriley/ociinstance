@@ -29,19 +29,25 @@ provider "oci" {
   fingerprint = var.oci_specifics.public_key_fingerprint
 }
 
+locals {
+  # Use the root compartment. We could choose instead to define a
+  # `oci_identity_compartment` resource just for this deployment.
+  oci_compartment_id = var.oci_specifics.tenancy_ocid
+}
+
 /*
 resource "oci_core_instance" "the_instance" {
-  compartment_id = var.oci_specifics.tenancy_ocid
+  compartment_id = local.oci_compartment_id
   shape = "VM.Standard.A1.Flex"
 }
 */
 
 data "oci_identity_availability_domains" "domains" {
-  compartment_id = var.oci_specifics.tenancy_ocid
+  compartment_id = local.oci_compartment_id
 }
 
 data "oci_core_images" "ubuntu_arm64_images" {
-  compartment_id = var.oci_specifics.tenancy_ocid
+  compartment_id = local.oci_compartment_id
 
   state = "AVAILABLE"
 
