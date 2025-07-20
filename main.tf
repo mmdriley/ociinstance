@@ -74,6 +74,16 @@ data "oci_core_images" "ubuntu_arm64_images" {
   }
 }
 
+resource "oci_core_vcn" "the_network" {
+  compartment_id = local.oci_compartment_id
+
+  cidr_blocks = [
+    "10.0.0.0/16",
+  ]
+
+  is_ipv6enabled = true
+}
+
 output "things_i_know_oci_core_instance_will_need" {
   value = {
     image = data.oci_core_images.ubuntu_arm64_images.images[0].id
