@@ -35,13 +35,6 @@ locals {
   oci_compartment_id = var.oci_specifics.tenancy_ocid
 }
 
-/*
-resource "oci_core_instance" "the_instance" {
-  compartment_id = local.oci_compartment_id
-  shape = "VM.Standard.A1.Flex"
-}
-*/
-
 data "oci_identity_availability_domains" "domains" {
   compartment_id = local.oci_compartment_id
 }
@@ -90,3 +83,10 @@ output "things_i_know_oci_core_instance_will_need" {
     domain = data.oci_identity_availability_domains.domains.availability_domains[0].name
   }
 }
+
+/*
+resource "oci_core_instance" "the_instance" {
+  compartment_id = local.oci_compartment_id
+  shape = "VM.Standard.A1.Flex"
+}
+*/
