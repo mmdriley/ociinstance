@@ -40,10 +40,14 @@ Therefore, this project still configures the OCI provider directly using variabl
 
 https://www.oracle.com/cloud/free/
 
+#### CPU+RAM
+
 > Arm-based Ampere A1 cores and 24 GB of memory usable as 1 VM or up to 4 VMs
 > 
 > Always Free
 > 3,000 OCPU hours and 18,000 GB hours per month
+
+doing some math:
 
 ```
 31 * 24 = 744
@@ -57,6 +61,13 @@ so, the always-free tier encompasses:
 - up to 4 VMs
 - with up to a total of **4 OCPUs**
 - with up to a total of **24 GB RAM**
+
+#### Storage
+
+> Boot and block volume storage
+>
+> Always Free
+> Up to 2 block volumes, 200 GB total. Plus 5 volume backups.
 
 ## Works cited
 
