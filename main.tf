@@ -83,6 +83,7 @@ resource "oci_core_vcn" "the_network" {
 resource "oci_core_subnet" "the_subnet" {
   compartment_id = local.oci_compartment_id
   vcn_id = oci_core_vcn.the_network.id
+
   cidr_block = cidrsubnet(oci_core_vcn.the_network.cidr_blocks[0], 8, local.arbitrary_ipv4_octet)
   ipv6cidr_block = cidrsubnet(oci_core_vcn.the_network.ipv6cidr_blocks[0], 8, local.arbitrary_ipv6_octet)
 }
