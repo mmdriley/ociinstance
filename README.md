@@ -69,6 +69,12 @@ so, the always-free tier encompasses:
 > Always Free
 > Up to 2 block volumes, 200 GB total. Plus 5 volume backups.
 
+### Terraform state management
+
+There are a lot of good options. I wanted to avoid adding any dependencies, or referencing resources that weren't themselves bootstrapped as IaC.
+
+The solution I arrived at was: encrypt the state with a passphrase I store in 1Password, then check the encrypted state into the repo. It felt like the right tradeoff for me, for this project.
+
 ## Works cited
 
 - [Automate OCI VM instance creation using Terraform
