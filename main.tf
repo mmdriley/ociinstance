@@ -112,6 +112,8 @@ resource "oci_core_instance" "the_instance" {
     are_legacy_imds_endpoints_disabled = true
   }
 
+  is_pv_encryption_in_transit_enabled = true
+
   shape = "VM.Standard.A1.Flex"
   shape_config {
     memory_in_gbs = 6
