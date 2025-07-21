@@ -1,8 +1,7 @@
-# e.g. `pwgen --secure 48` to derive a 256-bit key
+# To generate a passphrase with enough entropy for a full 32-byte AES-256
+# key, one option is:
+#   openssl rand -base64 32 | pbcopy
 #
-# len([a-zA-Z0-9]) = 62
-# log_2(62) ~= 5.95
-# 5.95 * 48 = 285 > 256
 variable "state_encryption_passphrase" {
   type = string
   sensitive = true
