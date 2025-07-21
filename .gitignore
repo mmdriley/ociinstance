@@ -1,5 +1,8 @@
 /.terraform/
 
 /.terraform.lock.hcl
-/terraform.tfstate*
+/terraform.tfstate.backup
 /terraform.tfvars
+
+# /terraform.tfstate is *not* ignored -- it's encrypted and syncs
+# with the repository.
