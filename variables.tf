@@ -1,3 +1,13 @@
+# e.g. `pwgen --secure 48` to derive a 256-bit key
+#
+# len([a-zA-Z0-9]) = 62
+# log_2(62) ~= 5.95
+# 5.95 * 48 = 285 > 256
+variable "state_encryption_passphrase" {
+  type = string
+  sensitive = true
+}
+
 variable "oci_specifics" {
   type = object({
     region = string # e.g. "us-sanjose-1"
