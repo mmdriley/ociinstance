@@ -84,7 +84,10 @@ resource "oci_core_route_table" "the_routing_table" {
     destination       = "0.0.0.0/0"
   }
 
-  # TODO: IPv6
+  route_rules {
+    network_entity_id = oci_core_internet_gateway.the_network_gateway.id
+    destination       = "::/0"
+  }
 }
 
 resource "oci_core_subnet" "the_subnet" {
