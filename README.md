@@ -75,6 +75,14 @@ There are a lot of good options. I wanted to avoid adding any dependencies, or r
 
 The solution I arrived at was: encrypt the state with a passphrase I store in 1Password, then check the encrypted state into the repo. It felt like the right tradeoff for me, for this project.
 
+### Firewalls and port access
+
+The ports accessible on the OCI instance are controlled by more than the network ingress rules.
+
+OCI's default Ubuntu image has `iptables` rules that restrict incoming TCP access to port 22 only.
+
+I solved this with `sudo apt remove iptables` and `sudo apt install ufw`. More elegant solutions must exist!
+
 ## Works cited
 
 - [Automate OCI VM instance creation using Terraform
