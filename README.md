@@ -16,6 +16,10 @@ chmod 600 ~/.oci/apikey.pem
 openssl rsa -pubout -in ~/.oci/apikey.pem | pbcopy
 ```
 
+## Variables
+
+See [`variables.tf`](./variables.tf) for details on what needs to be configured.
+
 ### Why 4096-bit RSA?
 
 Ehh. [NIST says](https://csrc.nist.gov/pubs/sp/800/78/5/final) use 3072-bit RSA keys if they need to last past 2030. I like typing "4096" more than "3072".
