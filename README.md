@@ -18,8 +18,6 @@ openssl rsa -pubout -in ~/.oci/apikey.pem | pbcopy
 
 > TODO: explain why RSA 4096
 
-> TODO: `oci-cli` and config?
-
 ## Other notes
 
 ### Key fingerprints
