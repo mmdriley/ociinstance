@@ -79,9 +79,15 @@ The solution I arrived at was: encrypt the state with a passphrase I store in 1P
 
 The ports accessible on the OCI instance are controlled by more than the network ingress rules.
 
-OCI's default Ubuntu image has `iptables` rules that restrict incoming TCP access to port 22 only.
+OCI's default Ubuntu image has [`iptables` rules](https://gist.github.com/mmdriley/c0cd2a6726dcd660b77b6d1b8f5df830) that restrict incoming TCP access to port 22 only. The long list of other `iptables` rules were [needed in the past](https://docs.oracle.com/en-us/iaas/Content/Compute/References/bestpracticescompute.htm#Essentia) but no longer matter now that block volumes are attached as `PARAVIRTUALIZED`.
 
-I solved this with `sudo apt remove iptables` and `sudo apt install ufw`. More elegant solutions must exist!
+I solved this with:
+
+```shell
+sudo apt remove netfilter-persistent
+sudp apt install ufw
+sudo shutdown -r now
+```
 
 ## Works cited
 
