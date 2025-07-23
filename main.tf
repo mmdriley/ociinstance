@@ -57,7 +57,7 @@ resource "oci_core_security_list" "the_security_list" {
   # - https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securitylists.htm
   # - https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/ipv6.htm#security_lists
 
-/*
+  /*
   # Enable inbound SSH
 
   ingress_security_rules {
@@ -93,30 +93,30 @@ resource "oci_core_security_list" "the_security_list" {
 
   ingress_security_rules {
     protocol = "17" # UDP
-    source = "0.0.0.0/0"
+    source   = "0.0.0.0/0"
   }
 
   ingress_security_rules {
     protocol = "17"
-    source = "::/0"
+    source   = "::/0"
   }
 
   # Allow MTU discovery
 
   ingress_security_rules {
     protocol = "1" # ICMP
-    source = "0.0.0.0/0"
+    source   = "0.0.0.0/0"
 
     # "Fragmentation Needed and Don't Fragment was Set"
     icmp_options {
       type = 3
-      code = 4 
+      code = 4
     }
   }
 
   ingress_security_rules {
     protocol = "58" # ICMPv6
-    source = "::/0"
+    source   = "::/0"
 
     # "Packet Too Big"
     icmp_options {
@@ -129,7 +129,7 @@ resource "oci_core_security_list" "the_security_list" {
 
   ingress_security_rules {
     protocol = "1" # ICMP
-    source = oci_core_vcn.the_network.cidr_blocks[0]
+    source   = oci_core_vcn.the_network.cidr_blocks[0]
 
     icmp_options {
       type = 3
@@ -149,22 +149,22 @@ resource "oci_core_security_list" "the_security_list" {
   }
 
   egress_security_rules {
-    protocol = "17" # UDP
+    protocol    = "17" # UDP
     destination = "0.0.0.0/0"
   }
 
   egress_security_rules {
-    protocol = "17" # UDP
+    protocol    = "17" # UDP
     destination = "::/0"
   }
 
   egress_security_rules {
-    protocol = "1" # ICMP
+    protocol    = "1" # ICMP
     destination = "0.0.0.0/0"
   }
 
   egress_security_rules {
-    protocol = "58" # ICMPv6
+    protocol    = "58" # ICMPv6
     destination = "::/0"
   }
 }

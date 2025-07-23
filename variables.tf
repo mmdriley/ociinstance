@@ -3,7 +3,7 @@
 #   openssl rand -base64 32 | pbcopy
 #
 variable "state_encryption_passphrase" {
-  type = string
+  type      = string
   sensitive = true
 }
 
