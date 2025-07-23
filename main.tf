@@ -53,10 +53,11 @@ resource "oci_core_security_list" "the_security_list" {
   compartment_id = local.oci_compartment_id
   vcn_id         = oci_core_vcn.the_network.id
 
-  # Defaults, per: 
+  # Default security lists are described at:
   # - https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securitylists.htm
   # - https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/ipv6.htm#security_lists
 
+/*
   # Enable inbound SSH
 
   ingress_security_rules {
@@ -75,6 +76,29 @@ resource "oci_core_security_list" "the_security_list" {
       min = 22
       max = 22
     }
+  }
+*/
+
+  # Enable *all* incoming TCP+UDP
+
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source   = "0.0.0.0/0"
+  }
+
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source   = "::/0"
+  }
+
+  ingress_security_rules {
+    protocol = "17" # UDP
+    source = "0.0.0.0/0"
+  }
+
+  ingress_security_rules {
+    protocol = "17"
+    source = "::/0"
   }
 
   # Allow MTU discovery
@@ -142,28 +166,6 @@ resource "oci_core_security_list" "the_security_list" {
   egress_security_rules {
     protocol = "58" # ICMPv6
     destination = "::/0"
-  }
-
-  # ... and then, bonus rules: allow *all* incoming TCP+UDP.
-
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
-  }
-
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "::/0"
-  }
-
-  ingress_security_rules {
-    protocol = "17" # UDP
-    source = "0.0.0.0/0"
-  }
-
-  ingress_security_rules {
-    protocol = "17"
-    source = "::/0"
   }
 }
 
