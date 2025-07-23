@@ -218,8 +218,8 @@ resource "oci_core_instance" "the_instance" {
 
   shape = "VM.Standard.A1.Flex"
   shape_config {
-    memory_in_gbs = 6
-    ocpus         = 1
+    memory_in_gbs = 12
+    ocpus         = 2
   }
 
   create_vnic_details {
