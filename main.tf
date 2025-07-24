@@ -225,6 +225,9 @@ resource "oci_core_instance" "the_instance" {
   create_vnic_details {
     assign_ipv6ip = true
     subnet_id     = oci_core_subnet.the_subnet.id
+
+    # public IP is assigned later, see `the_public_ip`
+    assign_public_ip = false
   }
 
   source_details {
@@ -237,4 +240,20 @@ resource "oci_core_instance" "the_instance" {
   metadata = {
     "ssh_authorized_keys" : join("\n", var.ssh_authorized_keys)
   }
+}
+
+# Get the ID of the private IP assigned to the instance so we can assign a
+# corresponding public IP.
+data "oci_core_private_ips" "the_instance_private_ip" {
+  subnet_id  = oci_core_subnet.the_subnet.id
+  ip_address = oci_core_instance.the_instance.private_ip
+}
+
+# Define a reserved public IP as a separate resource to keep the same IP
+# even when recreating the instance.
+resource "oci_core_public_ip" "the_public_ip" {
+  compartment_id = local.oci_compartment_id
+  lifetime       = "RESERVED"
+
+  private_ip_id = data.oci_core_private_ips.the_instance_private_ip.private_ips[0].id
 }
