@@ -46,31 +46,32 @@ https://www.oracle.com/cloud/free/
 
 #### CPU+RAM
 
-> Arm-based Ampere A1 cores and 24 GB of memory usable as 1 VM or up to 4 VMs
-> 
-> Always Free
-> 3,000 OCPU hours and 18,000 GB hours per month
+> Arm-based Ampere A1 cores and 12 GB of memory usable as 1 VM or 2 VMs
+>
+> Always Free  
+> 1,500 OCPU hours and 9,000 GB hours per month
 
 doing some math:
 
 ```
-31 * 24 = 744
-(round to 750)
+31 days * 24 (hours/day) = 744 hours
+(round to 750 hours)
 
-24 * 750 = 18,000
-4 * 750 = 3,000
+2 CPU * 750 hours = 1,500 CPU-hours
+12 GB * 750 hours = 9,000 GB-hours
 ```
 
 so, the always-free tier encompasses:
-- up to 4 VMs
-- with up to a total of **4 OCPUs**
-- with up to a total of **24 GB RAM**
+- up to 2 VMs
+- with up to a total of **2 CPUs**
+- with up to a total of **12 GB RAM**
+- running for the entire month
 
 #### Storage
 
 > Boot and block volume storage
 >
-> Always Free
+> Always Free  
 > Up to 2 block volumes, 200 GB total. Plus 5 volume backups.
 
 ### Terraform state management
